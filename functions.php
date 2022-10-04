@@ -2,10 +2,10 @@
 function getDatabaseConnection(){
 
     //inputting data
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "test";
+    $servername = getConfigParameter('host');
+    $username = getConfigParameter('username');
+    $password = getConfigParameter('password');
+    $dbname = getConfigParameter('dbname');
 
     //Create Connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -186,15 +186,28 @@ function Validate($value1, $value2){
 }
 
 function getHashed($password){
-    return md5($password."salt");
+    return md5($password.getConfigParameter('hash'));
 }
 
 function getUrl($file = ''){
-    return "http://localhost/Projekte/azubiManagement/".$file;
+    return getConfigParameter('url').$file;
 }
 
 function redirect($url){
     header("Location: ".$url);
     exit();
+}
+
+function getConfigParameter($key){
+    $filename = __DIR__.'/config.php';
+    if (!file_exists($filename)){
+        die('Config File is missing');
+    }
+    include "config.php";
+    if(isset($config[$key])){
+        return $config[$key];
+    }
+    return false;
+
 }
 

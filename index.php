@@ -1,5 +1,5 @@
 <?php
-include "sessionCheck.php";
+// include "sessionCheck.php";
 include 'functions.php';
 $conn = getDatabaseConnection();
 $submission = 'Authenticate-Submit'; //to remove
