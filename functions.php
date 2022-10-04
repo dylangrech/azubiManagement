@@ -34,6 +34,7 @@ function executeMysqlQuery($conn, $query){
 }
 
 function createAzubiSkill($conn, $azubiID, $skillType, $skillValue){
+    //Create a new skill in azubi_skills database
     $sqlpre = "INSERT INTO azubi_skills(azubi_id, type, skill) VALUES ('$azubiID', '$skillType', '$skillValue')";
 
     if (executeMysqlQuery($conn, $sqlpre)){
@@ -180,12 +181,20 @@ function deleteAzubi($conn, $id){
 
 function Validate($value1, $value2){
     if ($value1 !== $value2){
-        echo "<button><a href='index.php'>Try Again</a></button> <br>";
         die("Confirmed Password does not match");
     }
 }
 
 function getHashed($password){
     return md5($password."salt");
+}
+
+function getUrl($file = ''){
+    return "http://localhost/Projekte/azubiManagement/".$file;
+}
+
+function redirect($url){
+    header("Location: ".$url);
+    exit();
 }
 

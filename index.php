@@ -1,3 +1,9 @@
+<?php
+include "sessionCheck.php";
+include 'functions.php';
+$conn = getDatabaseConnection();
+$submission = 'Authenticate-Submit'; //to remove
+?>
 <!DOCTYPE html>
     <html lang="en">
     <meta charset="UTF-8">
@@ -9,15 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Nabla&family=Raleway:wght@200&display=swap" rel="stylesheet">
     <body>
         <div id="wrapper-content">
-            <form action="insert.php" method="post">
+            <form action="<?php echo getUrl('insert.php'); ?>" method="post">
                 <div id="personal-info-wrapper">
                     <h1 style="color: darkorange">Input Personal Data</h1>
                     <?php
-                        include "sessionCheck.php";
-                        include 'functions.php';
-                        $conn = getDatabaseConnection();
-                        $submission = 'Authenticate-Submit';
-
+                        //Variable azubi_id is given the data inputted in the search box by the user. If it exists the select query is executed and displayed in a form
                         $row = ['name' => '', 'birthday' => '',  'email' => '',  'githubuser' => '',  'employmentstart' => '',  'pictureurl' => '', 'password' => '' ];
                         $azubi_id = getRequestParameter('azubi_id');
                         if ($azubi_id !== false ){
@@ -112,13 +114,12 @@
                 <input type="submit" value="Submit" name="Authenticate-Submit">
                 </div>
             </form>
-            <form action="" method="GET">
+            <form action="<?php echo getUrl('index.php'); ?>" method="GET">
                 <input type="text" name="azubi_id" value="<?php if(isset($_GET['azubi_id'])){echo $_GET['azubi_id'];}?>">
                 <button type="submit">Search</button>
             </form>
             <?php if ($azubi_id !== false){ ?>
-            <form action="delete.php" method="POST">
-                <label>Input AzubiID</label>
+            <form action="<?php echo getUrl('delete.php'); ?>" method="POST">
                 <input type="hidden" name="delete_azubi-id" value="<?= $azubi_id; ?>">
                 <button type="submit" name="delete-azubi-button">Delete Azubi</button>
             </form>
