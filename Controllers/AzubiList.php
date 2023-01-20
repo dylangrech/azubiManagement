@@ -83,7 +83,7 @@ class AzubiList extends SafetyController
 
     public function delete()
     {
-        $id = $this->getRequestParameter('delete-azubi-id');
+        $id = $this->getRequestParameter('delete_azubi_id');
         $azubi = new Azubi();
         $azubi->delete($id);
     }

@@ -65,9 +65,9 @@ function deleteData(id){
     let confirmation = confirm('Are you sure you want to delete this Azubi?');
     if (confirmation){
         $.ajax({
-            method: 'DELETE',
-            url: 'http://localhost/Projekte/azubiManagement/index.php?controller=AzubiList&action=delete&delete-azubi-id='+id,
-            data: {id:id},
+            method: 'POST',
+            url: 'http://localhost/Projekte/azubiManagement/index.php?controller=AzubiList&action=delete&delete_azubi_id=',
+            data: {delete_azubi_id:id},
             statusCode: {
                 200: function (){
                     alert('Successfully Deleted');
@@ -87,7 +87,7 @@ function showResult(str){
     }
     $.ajax({
        method: 'GET',
-       url: 'http://localhost/Projekte/azubiManagement/index.php?controller=SearchSuggest&search='+str,
+       url: 'http://localhost/Projekte/azubiManagement/index.php?controller=SearchSuggest&search=',
        data: {search: str},
        success:function (responseText){
             $('#livesearch').html(responseText).css('border', '');
@@ -99,7 +99,7 @@ function outputResult(name) {
     $('#searchInput').val(name);
     $.ajax({
         method: 'GET',
-        url: 'http://localhost/Projekte/azubiManagement/index.php?controller=SearchDisplay&action=getSearchedData&search='+name.replace(' ', '%20'),
+        url: 'http://localhost/Projekte/azubiManagement/index.php?controller=SearchDisplay&action=getSearchedData&search=',
         data: {search: name.replace('%20', ' ')},
         success:function (responseText){
             $('#listDisplay').html(responseText);
@@ -113,7 +113,7 @@ function outputPaginationResult(name){
     $('#searchInput').val(name);
     $.ajax({
        method: 'GET',
-       url: 'http://localhost/Projekte/azubiManagement/index.php?controller=PaginationDisplay&action=getNumberofPages&search='+name,
+       url: 'http://localhost/Projekte/azubiManagement/index.php?controller=PaginationDisplay&action=getNumberofPages&search=',
        data: {search: name},
        success:function (responseText){
            $('#paginationDisplay').html(responseText);

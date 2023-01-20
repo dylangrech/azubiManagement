@@ -105,7 +105,7 @@ $azubi = $controller->getAzubi();  ?>
                                             <form class="deleteID" action="<?php echo $controller->getUrl('index.php'); ?>" method="GET" >
                                                 <input type="hidden" name="controller" value="AzubiForm">
                                                 <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="delete-azubi-id" value="<?= $azubi->getId(); ?>">
+                                                <input type="hidden" name="delete_azubi_id" value="<?= $azubi->getId(); ?>">
                                                 <button type="submit" class="btn btn-light btn-lg" name="delete-azubi-button">Delete Azubi</button>
                                             </form>
                                         </div>
