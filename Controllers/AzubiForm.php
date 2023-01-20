@@ -4,6 +4,7 @@ class AzubiForm extends SafetyController
 {
     //Properties
     protected $view = 'form';
+    protected $searchList = false;
 
     //function that outputs an array with pre-skill values, no empty values are added, loops up to 5 times
     public function cleanPreArray()

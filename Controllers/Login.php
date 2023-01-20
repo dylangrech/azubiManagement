@@ -6,6 +6,7 @@ class Login extends BaseController
     protected $startsSession = true;
     protected $showNavigationBar = false;
 
+
     public function loginUser()
     {
         //Variables contain data which has been inputted by the user

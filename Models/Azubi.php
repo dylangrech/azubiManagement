@@ -176,7 +176,6 @@ class Azubi
         }
     }
 
-
     public function save()
     {
        $insert = "INSERT INTO azubi (name, birthday,email, githubuser, employmentstart, pictureurl, password) VALUES ('".$this->getName()."', '".$this->getBirthday()."', '".$this->getEmail()."', '".$this->getGithubuser()."', '".$this->getEmploymentstart()."', '".$this->getPictureurl()."', '".DatabaseConnect::getHashed($this->getPassword())."')";

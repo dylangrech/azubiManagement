@@ -8,6 +8,7 @@ class BaseController
     protected $errorMessage = false;
     protected $errorLine = false;
     protected $errorFile = false;
+    public $loggedInUser = null;
 
     public function __construct()
     {
@@ -99,6 +100,7 @@ class BaseController
             include __DIR__ . "/../Views/header.php";
             echo $file_content;
             include __DIR__."/../Views/footer.php";
+
     }
 }
 

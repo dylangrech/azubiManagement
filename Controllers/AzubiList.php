@@ -3,21 +3,29 @@
 class AzubiList extends SafetyController
 {
     protected $view = "list";
-    //Properties
     public $numPerPage;
     public $page;
     public $startFrom;
+    protected array $options = ['1','3','10','25','50','100'];
+
+    public function injectSelectAttribute($selectedOption, $option_value)
+    {
+        return strtolower($selectedOption) === strtolower($option_value) ? 'selected="selected"' : '';
+    }
 
     public function getAzubiData()
     {
         $search = $this->getRequestParameter('search');
-        $this->numPerPage = 10;
+        $this->numPerPage = $this->getRequestParameter('amountPerPage');
+        if (empty($this->numPerPage)){
+            $this->numPerPage = 10;
+        }
         if (isset($_GET['page'])){
             $this->page = $_GET['page'];
         } else {
             $this->page = 1;
         }
-        $this->startFrom = ($this->page - 1)*10;
+        $this->startFrom = ($this->page - 1)*$this->numPerPage;
         //Contains Nothing - Will be returned if the search input has no output (i.e. no data with the search input)
         $azubiArray = [];
         //Select Data Query
@@ -57,7 +65,10 @@ class AzubiList extends SafetyController
     public function getNumberOfPages()
     {
         $search = $this->getRequestParameter('search');
-        $this->numPerPage = 10;
+        $this->numPerPage = $this->getRequestParameter('amountPerPage');
+        if (empty($this->numPerPage)){
+            $this->numPerPage = 10;
+        }
         $query = "SELECT * FROM azubi";
         if (!empty($search)){
             $search = mysqli_real_escape_string(DatabaseConnect::getDbConnection(), $search);
@@ -75,5 +86,19 @@ class AzubiList extends SafetyController
         $id = $this->getRequestParameter('delete-azubi-id');
         $azubi = new Azubi();
         $azubi->delete($id);
+    }
+
+    public function getPaginationLinks($selectedOption, $search, $i)
+    {
+        $url = 'index.php?amountPerPage='.$selectedOption.'&page='.$i;
+        if (!empty($search)){
+            $url .= '&search='.$search;
+        }
+        return $url;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

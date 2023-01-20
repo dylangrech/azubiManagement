@@ -3,6 +3,7 @@
 class Profile extends SafetyController
 {
     protected $view = "profile";
+    protected $searchList = false;
 
     public function timeElapsed()
     {
@@ -36,6 +37,7 @@ class Profile extends SafetyController
 
     public function outputTime(){
         $timeElapsed = $this->timeElapsed();
+        var_dump($timeElapsed);
         if (array_key_exists('Years', $timeElapsed)){
             echo $timeElapsed['Years'].' Jahr(en) ';
         }
@@ -48,8 +50,16 @@ class Profile extends SafetyController
     }
 
     public function getAzubi(){
+        $userEmail = $_SESSION["userEmail"];
+        $string = "'";
+        $userEmail = $string.$userEmail.$string;
+        $sql = "SELECT azubi.id FROM azubi WHERE email = ".$userEmail." ";
+        $result = DatabaseConnect::executeMysqlQuery($sql);
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($data as $row){
+        }
         $azubi = new Azubi();
-        $azubi->load(290);
+        $azubi->load($row['id']);
         return $azubi;
     }
 }
