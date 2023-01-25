@@ -66,7 +66,7 @@ function deleteData(id){
     if (confirmation){
         $.ajax({
             method: 'POST',
-            url: 'http://localhost/Projekte/azubiManagement/index.php?',
+            url: 'http://localhost/Projekte/azubiManagement/index.php',
             data: {controller: 'AzubiList', action: 'delete', delete_azubi_id:id},
             statusCode: {
                 200: function (){
@@ -87,7 +87,7 @@ function showResult(str){
     }
     $.ajax({
        method: 'GET',
-       url: 'http://localhost/Projekte/azubiManagement/index.php?',
+       url: 'http://localhost/Projekte/azubiManagement/index.php',
        data: {controller: 'SearchSuggest', search: str},
        success:function (responseText){
             $('#livesearch').html(responseText).css('border', '');
@@ -99,8 +99,8 @@ function outputResult(name) {
     $('#searchInput').val(name);
     $.ajax({
         method: 'GET',
-        url: 'http://localhost/Projekte/azubiManagement/index.php?',
-        data: {controller: 'SearchDisplay', action: 'getSearchedData', search: name.replace('%20', ' ')},
+        url: 'http://localhost/Projekte/azubiManagement/index.php',
+        data: {controller: 'SearchDisplay', action: 'getSearchedData', search: name},
         success:function (responseText){
             $('#listDisplay').html(responseText);
             $('#livesearch').html('');
@@ -113,7 +113,7 @@ function outputPaginationResult(name){
     $('#searchInput').val(name);
     $.ajax({
        method: 'GET',
-       url: 'http://localhost/Projekte/azubiManagement/index.php?',
+       url: 'http://localhost/Projekte/azubiManagement/index.php',
        data: {controller: 'PaginationDisplay', action: 'getNumberofPages', search: name},
        success:function (responseText){
            $('#paginationDisplay').html(responseText);
